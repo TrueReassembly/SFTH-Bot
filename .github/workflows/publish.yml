@@ -1,0 +1,29 @@
+name: Publish Release
+
+on:
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
+
+permissions: write-all
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Jar
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: build.yml
+          name: ${{ github.event.repository.name }}.jar
+          path: build/libs/SFTH-Bot.jar
+
+      - name: Create Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          automatic_release_tag: "latest"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          title: "Latest Release"
+          files: ./build/libs/SFTH-Bot.jar
