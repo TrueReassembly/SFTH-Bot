@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.0
         with:
           name: ${{ github.event.repository.name }}.jar
-          path: build/libs/SFTH-Bot.jar
+          path: build/libs/SFTHBot.jar
           retention-days: 1
 
       - name: GH Release

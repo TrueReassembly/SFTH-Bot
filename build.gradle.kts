@@ -40,3 +40,7 @@ tasks.register<Exec>("uploadJar") {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.shadowJar {
+    archiveFileName = "SFTHBot.jar"
+}
