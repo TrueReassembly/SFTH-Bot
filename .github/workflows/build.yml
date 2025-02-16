@@ -25,7 +25,7 @@ jobs:
           gradle-version: release-candidate
 
       - name: Build with Gradle
-        run: gradle build
+        run: gradle shadowjar
 
       - name: Archive Jar Artifacts
         uses: actions/upload-artifact@v3
