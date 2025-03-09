@@ -14,9 +14,7 @@ object NowPlayingHandler {
 
     suspend fun runNowPlayingUpdateLoop() {
         while (true) {
-            logger.info("Running the update loop")
             for (server in DatabaseHandler.getAllServersToUpdate()) {
-                logger.debug("Testing ", )
                 val guild: Guild? = SFTHBot.getInstance().getGuildById(server.id) ?: run {
                     datastore.delete(server)
                     null
@@ -132,6 +130,24 @@ object NowPlayingHandler {
             val channel = guild.getTextChannelById(server.sevenThingsChannel) ?: return
             if (isActive(channel)) {
                 message += "\n7 Things: " + channel.asMention
+            }
+        }
+        if (server.normalTranslatorChannel.isNotEmpty()) {
+            val channel = guild.getTextChannelById(server.normalTranslatorChannel) ?: return
+            if (isActive(channel)) {
+                message += "\nTranslator: " + channel.asMention
+            }
+        }
+        if (server.emojiTranslatorChannel.isNotEmpty()) {
+            val channel = guild.getTextChannelById(server.emojiTranslatorChannel) ?: return
+            if (isActive(channel)) {
+                message += "\nEmoji Translator: " + channel.asMention
+            }
+        }
+        if (server.threeHeadedExpertChannel.isNotEmpty()) {
+            val channel = guild.getTextChannelById(server.threeHeadedExpertChannel) ?: return
+            if (isActive(channel)) {
+                message += "\nThree-headed Expert: " + channel.asMention
             }
         }
         val oldMessage = guild.getTextChannelById(server.currentlyPlayingMessageChannel)!!.retrieveMessageById(server.currentlyPlayingMessageId).complete()
