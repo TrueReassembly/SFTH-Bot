@@ -15,13 +15,11 @@ object PatternHandler: ListenerAdapter() {
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
         CoroutineScope(Dispatchers.Default).launch {
-            logger.info("Preparing to deploy onto new thread for ${event.message.author.name}")
             handleDuplicates(event)
         }
     }
 
     suspend fun handleDuplicates(event: MessageReceivedEvent) = withContext(Dispatchers.Default) {
-        logger.info("Handed off to new thread")
         if (!event.isFromGuild) return@withContext
         val server = DatabaseHandler.getServer(event.guild.id) ?: return@withContext
         if (event.channelType != ChannelType.TEXT) return@withContext

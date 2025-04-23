@@ -4,6 +4,7 @@ import dev.reassembly.commands.CommandHandler
 import dev.reassembly.commands.impl.PingCommand
 import dev.reassembly.commands.impl.config.ConfigCommand
 import dev.reassembly.commands.impl.config.RegisterCommand
+import dev.reassembly.commands.impl.games.PromptCommand
 import dev.reassembly.commands.impl.letters.EndLetterCommand
 import dev.reassembly.database.DatabaseHandler
 import dev.reassembly.handlers.NowPlayingHandler
@@ -62,12 +63,20 @@ object SFTHBot {
                         )
                 ),
             Commands.slash("endletter", "Ends the letter, formats it and starts a new one").setGuildOnly(true),
-            Commands.slash("writeup", "Collates and writes up the game").setGuildOnly(true)
+            Commands.slash("writeup", "Collates and writes up the game").setGuildOnly(true),
+            Commands.slash("prompt", "Gives a prompt if you are out of ideas").setGuildOnly(true).addOptions(OptionData(OptionType.STRING, "type", "The type of prompt").setRequired(true)
+                .addChoice("TV Genre", "tv_genre")
+                .addChoice("Film Genre", "film_genre")
+                .addChoice("Theatre Genre", "theatre_genre")
+                .addChoice("Relationship", "relationships")
+                .addChoice("Location", "locations")
+                .addChoice("Object", "objects")
+            )
         ).queue()
 
         logger.info("Registered Commands")
 
-        CommandHandler.registerCommands(PingCommand, RegisterCommand, ConfigCommand, EndLetterCommand)
+        CommandHandler.registerCommands(PingCommand, RegisterCommand, ConfigCommand, EndLetterCommand, PromptCommand)
 
         DatabaseHandler.init()
 
