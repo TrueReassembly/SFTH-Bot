@@ -5,6 +5,8 @@ import dev.reassembly.database.DatabaseHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.dv8tion.jda.api.Permission
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel
+import net.dv8tion.jda.api.entities.channel.concrete.ThreadChannel
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 
 object ConfigCommand: BaseCommand("config") {
@@ -37,7 +39,9 @@ object ConfigCommand: BaseCommand("config") {
                     "letter" -> {
                         server.letterChannel = channel.id
                         event.reply("Set Letter channel to " + channel.asMention).queue()
-                        channel.asTextChannel().sendMessage("Start your letter here:").queue()
+                        if (channel is TextChannel || channel is ThreadChannel) {
+                            channel.sendMessage("Start your letter here:").queue()
+                        }
                     }
                     "letter_hof" -> {
                         server.letterHofChannel = channel.id
@@ -46,7 +50,9 @@ object ConfigCommand: BaseCommand("config") {
                     "pattern" -> {
                         server.patternChannel = channel.id
                         event.reply("Set Pattern channel to " + channel.asMention).queue()
-                        channel.asTextChannel().sendMessage("Start pattern game here:").queue()
+                        if (channel is TextChannel || channel is ThreadChannel) {
+                            channel.sendMessage("Start pattern game here:").queue()
+                        }
                     }
                     "pattern_hof" -> {
                         server.patternHofChannel = channel.id
@@ -110,11 +116,12 @@ object ConfigCommand: BaseCommand("config") {
                     }
                     "nowplaying" -> {
                         server.currentlyPlayingMessageChannel = channel.id
-                        val nowPlayingChannel = channel.asTextChannel()
-                        val nowPlayingMessage = withContext(Dispatchers.IO) {
-                            nowPlayingChannel.sendMessage("Currently Active Games").complete()
+                        if (channel is TextChannel || channel is ThreadChannel) {
+                            val nowPlayingMessage = withContext(Dispatchers.IO) {
+                                channel.sendMessage("Currently Active Games").complete()
+                            }
+                            server.currentlyPlayingMessageId = nowPlayingMessage.id
                         }
-                        server.currentlyPlayingMessageId = nowPlayingMessage.id
                         event.reply("Set Now Playing channel to " + channel.asMention).queue()
                     }
                     "book" -> {

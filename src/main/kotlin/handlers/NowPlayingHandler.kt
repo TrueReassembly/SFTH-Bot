@@ -20,6 +20,7 @@ object NowPlayingHandler {
                     null
                 }
                 if (guild == null) continue
+                if (server.currentlyPlayingMessageChannel.isEmpty()) continue
                 updateNowPlaying(guild)
             }
             delay(60000L)
