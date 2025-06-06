@@ -7,6 +7,7 @@ import dev.reassembly.handlers.GPTHandler
 import dev.reassembly.utils.MessageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 
 object EndLetterCommand: BaseCommand("endletter") {
@@ -19,9 +20,10 @@ object EndLetterCommand: BaseCommand("endletter") {
             hook.sendMessage("Letters is not set up for this server").setEphemeral(true).queue()
             return
         }
-        val channel = SFTHBot.getInstance().getTextChannelById(channelId) ?: run {
-            hook.sendMessage("There was a problem with finding the channel, try setting the letters channel in the /config command again").setEphemeral(true).queue()
-            return
+        val channel = SFTHBot.getInstance().getChannelById(MessageChannel::class.java, channelId) ?: run {
+                hook.sendMessage("There was a problem with finding the channel, try setting the letters channel in the /config command again")
+                    .setEphemeral(true).queue()
+                return
         }
         if (event.channel.id != channelId) {
             hook.sendMessage("You can only run this command in " + SFTHBot.getInstance().getTextChannelById(channelId)!!.asMention).setEphemeral(true).queue()
@@ -39,6 +41,6 @@ object EndLetterCommand: BaseCommand("endletter") {
             return
         }
         hook.sendMessage(formattedLetter).queue()
-        event.channel.asTextChannel().sendMessage("You may start a new letter:").queue()
+        channel.sendMessage("You may start a new letter:").queue()
     }
 }

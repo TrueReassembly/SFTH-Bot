@@ -32,20 +32,12 @@ object ConfigCommand: BaseCommand("config") {
                         server.changeChannel = channel.id
                         event.reply("Set Change channel to " + channel.asMention).queue()
                     }
-                    "change_hof" -> {
-                        server.changeHofChannel = channel.id
-                        event.reply("Set Change Hall Of Fame channel to " + channel.asMention).queue()
-                    }
                     "letter" -> {
                         server.letterChannel = channel.id
                         event.reply("Set Letter channel to " + channel.asMention).queue()
                         if (channel is TextChannel || channel is ThreadChannel) {
                             channel.sendMessage("Start your letter here:").queue()
                         }
-                    }
-                    "letter_hof" -> {
-                        server.letterHofChannel = channel.id
-                        event.reply("Set Letter Hall Of Fame channel to " + channel.asMention).queue()
                     }
                     "pattern" -> {
                         server.patternChannel = channel.id
@@ -54,65 +46,33 @@ object ConfigCommand: BaseCommand("config") {
                             channel.sendMessage("Start pattern game here:").queue()
                         }
                     }
-                    "pattern_hof" -> {
-                        server.patternHofChannel = channel.id
-                        event.reply("Set Pattern Hall Of Fame channel to " + channel.asMention).queue()
-                    }
                     "freezetag" -> {
                         server.freezeTagChannel = channel.id
                         event.reply("Set Freeze Tag channel to " + channel.asMention).queue()
-                    }
-                    "freezetag_hof" -> {
-                        server.freezeTagHofChannel = channel.id
-                        event.reply("Set Freeze Tag Hall Of Fame channel to " + channel.asMention).queue()
                     }
                     "lateforwork" -> {
                         server.lateForWorkChannel = channel.id
                         event.reply("Set Late For Work channel to " + channel.asMention).queue()
                     }
-                    "lateforwork_hof" -> {
-                        server.lateForWorkHofChannel = channel.id
-                        event.reply("Set Late For Work Hall Of Fame channel to " + channel.asMention).queue()
-                    }
                     "partyquirks" -> {
                         server.partyQuirksChannel = channel.id
                         event.reply("Set Party Quirks channel to " + channel.asMention).queue()
-                    }
-                    "partyquirks_hof" -> {
-                        server.partyQuirksHofChannel = channel.id
-                        event.reply("Set Party Quirks Hall Of Fame channel to " + channel.asMention).queue()
                     }
                     "bedtimestories" -> {
                         server.bedtimeStoriesChannel = channel.id
                         event.reply("Set Bedtime Stories channel to " + channel.asMention).queue()
                     }
-                    "bedtimestories_hof" -> {
-                        server.bedtimeStoriesHofChannel = channel.id
-                        event.reply("Set Bedtime Stories Hall Of Fame channel to " + channel.asMention).queue()
-                    }
                     "timewarp" -> {
                         server.timeWarpChannel = channel.id
                         event.reply("Set Time Warp channel to " + channel.asMention).queue()
-                    }
-                    "timewarp_hof" -> {
-                        server.timeWarpHofChannel = channel.id
-                        event.reply("Set Time Warp Hall Of Fame channel to " + channel.asMention).queue()
                     }
                     "guessinggame" -> {
                         server.guessingGameChannel = channel.id
                         event.reply("Set Guessing Game channel to " + channel.asMention).queue()
                     }
-                    "guessinggame_hof" -> {
-                        server.guessingGameHofChannel = channel.id
-                        event.reply("Set Guessing Game Hall Of Fame channel to " + channel.asMention).queue()
-                    }
                     "seventhings" -> {
                         server.sevenThingsChannel = channel.id
                         event.reply("Set Seven Things channel to " + channel.asMention).queue()
-                    }
-                    "seventhings_hof" -> {
-                        server.sevenThingsHofChannel = channel.id
-                        event.reply("Set Seven Things Hall Of Fame channel to " + channel.asMention).queue()
                     }
                     "nowplaying" -> {
                         server.currentlyPlayingMessageChannel = channel.id

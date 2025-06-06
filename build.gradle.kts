@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm") version "2.2.0-RC2"
     id("com.gradleup.shadow") version "9.0.0-beta4"
 }
 
@@ -57,4 +57,8 @@ tasks.test {
 
 tasks.shadowJar {
     archiveFileName = "SFTHBot.jar"
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.compilerOptions {
+    freeCompilerArgs.set(listOf("-XXLanguage:+BreakContinueInInlineLambdas"))
 }

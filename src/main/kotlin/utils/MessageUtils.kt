@@ -20,7 +20,7 @@ object MessageUtils {
 
         if (channel !is ThreadChannel && channel !is TextChannel) return words
         val messages = channel.iterableHistory
-        val list = messages.takeAsync(500).await()
+        val list = messages.takeAsync(2500).await()
         val self = SFTHBot.getInstance().selfUser.id
         if (removeMostRecent) list.removeFirst()
         for (message in list) {
