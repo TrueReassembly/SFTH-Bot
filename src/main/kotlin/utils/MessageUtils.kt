@@ -15,12 +15,12 @@ object MessageUtils {
         return words.joinToString(" ")
     }
 
-    suspend fun getLatestMessages(channel: Channel, removeMostRecent: Boolean): MutableList<String> {
+    suspend fun getLatestMessages(channel: Channel, amount: Int, removeMostRecent: Boolean): MutableList<String> {
         val words = mutableListOf<String>()
 
         if (channel !is ThreadChannel && channel !is TextChannel) return words
         val messages = channel.iterableHistory
-        val list = messages.takeAsync(2500).await()
+        val list = messages.takeAsync(amount).await()
         val self = SFTHBot.getInstance().selfUser.id
         if (removeMostRecent) list.removeFirst()
         for (message in list) {
@@ -28,6 +28,10 @@ object MessageUtils {
             words.add(message.contentDisplay)
         }
         return words
+    }
+
+    suspend fun getLatestMessages(channel: Channel, removeMostRecent: Boolean): MutableList<String> {
+        return getLatestMessages(channel, 2500, removeMostRecent)
     }
 
     suspend fun getLatestMessageObjects(channel: TextChannel, removeMostRecent: Boolean): MutableList<Message> {

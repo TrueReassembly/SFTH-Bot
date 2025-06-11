@@ -111,6 +111,9 @@ object ConfigCommand: BaseCommand("config") {
                     "chain" -> {
                         server.chainChannel = channel.id
                         event.reply("Set Chain channel to " + channel.asMention).queue()
+                        if (channel is TextChannel || channel is ThreadChannel) {
+                            channel.sendMessage("Start chain game here:").queue()
+                        }
                     }
                     else -> {
                         event.reply("Could not find game").setEphemeral(true).queue()
