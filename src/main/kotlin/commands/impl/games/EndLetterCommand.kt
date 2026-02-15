@@ -38,7 +38,9 @@ object EndLetterCommand: BaseCommand("endletter") {
             hook.sendMessage("There was an error when trying to format the letter. Is GPT down?").setEphemeral(true).queue()
             return
         }
-        hook.sendMessage(formattedLetter).queue()
+
+        MessageUtils.safeSendMessage(formattedLetter, channel)
+        hook.sendMessage("Formatted Letter.").queue()
         event.channel.asTextChannel().sendMessage("You may start a new letter:").queue()
     }
 }

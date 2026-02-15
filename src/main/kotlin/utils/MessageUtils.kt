@@ -37,4 +37,26 @@ object MessageUtils {
         }
         return cutOffMessages
     }
+
+    suspend fun safeSendMessage(message: String, channel: TextChannel, useCodeBlocks: Boolean = true) {
+        var messageSegment = if (useCodeBlocks) "```" else ""
+        var extraNeededChars = if (useCodeBlocks) 3 else 0
+
+        for (word in message.split(' ')) {
+            if (messageSegment.length + word.length + extraNeededChars > 2000) {
+                messageSegment = messageSegment.removeSuffix(" ")
+                messageSegment += "```"
+                channel.sendMessage(messageSegment).queue();
+                messageSegment = if (useCodeBlocks) "```" else ""
+            } else {
+                messageSegment += "$word "
+            }
+        }
+
+        if (messageSegment.isNotEmpty()) {
+            messageSegment = messageSegment.removeSuffix(" ")
+            messageSegment += "```"
+            channel.sendMessage(messageSegment).queue();
+        }
+    }
 }
