@@ -44,9 +44,7 @@ object GPTHandler {
             newMessage += completion.choices.first().message.content
             newMessage += "\n```"
             return newMessage
-        } catch (e: Exception) {
-            // will make this modular soon
-            SFTHBot.getInstance().getTextChannelById(1326234944879726764)!!.sendMessage("An Error occured when trying to generate a letter: \n```" + e.stackTrace + "```").queue()
+        } catch (_: Exception) {
             return null
         }
     }

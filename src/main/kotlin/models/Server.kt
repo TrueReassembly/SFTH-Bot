@@ -17,74 +17,81 @@ data class Server(@Id val id: String) {
     var currentlyPlayingMessageChannel: String = ""
 
     // Change
+    @GameChannel("Change")
     var changeChannel: String = ""
-    var changeHofChannel: String = ""
 
     // One Word Letter
+    @GameChannel("One Word Letter")
     var letterChannel: String = ""
-    var letterHofChannel: String = ""
 
     // Pattern
+    @GameChannel("Pattern Channel")
     var patternChannel: String = ""
-    var patternHofChannel: String = ""
 
     // Freeze Tag
+    @GameChannel("Freeze Tag")
     var freezeTagChannel: String = ""
-    var freezeTagHofChannel: String = ""
 
     // Late for work
+    @GameChannel("Late For Work")
     var lateForWorkChannel: String = ""
-    var lateForWorkHofChannel: String = ""
 
     // Party Quirks
+    @GameChannel("Party Quirks")
     var partyQuirksChannel: String = ""
-    var partyQuirksHofChannel: String = ""
 
     // Bedtime Stories
+    @GameChannel("Bedtime Stories")
     var bedtimeStoriesChannel: String = ""
-    var bedtimeStoriesHofChannel: String = ""
 
     // Time warp
+    @GameChannel("Time Warp")
     var timeWarpChannel: String = ""
-    var timeWarpHofChannel: String = ""
 
     // Guessing Game
+    @GameChannel("Guessing Game")
     var guessingGameChannel: String = ""
-    var guessingGameHofChannel: String = ""
 
     // 7 Things
+    @GameChannel("Seven Things")
     var sevenThingsChannel: String = ""
-    var sevenThingsHofChannel: String = ""
 
     // Long Form
+    @GameChannel("Long Form")
     var longFormChannel: String = ""
-    var longFormHofChannel: String = ""
 
     // Book
+    @GameChannel("Book")
     var bookChannel: String = ""
 
     // Genre
+    @GameChannel("Genres")
     var genreChannel: String = ""
 
     // Alphabet Game
+    @GameChannel("Alphabet")
     var alphabetChannel: String = ""
 
     // Flurry
+    @GameChannel("Flurry")
     var flurryChannel: String = ""
 
     // Pillars
+    @GameChannel("Pillars")
     var pillarsChannel: String = ""
 
     // Translators
+    @GameChannel("Translator (Normal)")
     val normalTranslatorChannel: String = ""
-    val normalTranslatorHofChannel: String = ""
+    @GameChannel("Translator (Emoji)")
     val emojiTranslatorChannel: String = ""
-    val emojiTanslatorHoFChannel: String = ""
 
     // Expert
+    @GameChannel("Three-Headed Expert")
     val threeHeadedExpertChannel: String = ""
-    val threeHeadedExpertHofChannel: String = ""
 
+    // Chain
+    @GameChannel("Chain")
     var chainChannel: String = ""
 
     fun save() {
