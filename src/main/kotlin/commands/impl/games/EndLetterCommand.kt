@@ -41,6 +41,6 @@ object EndLetterCommand: BaseCommand("endletter") {
 
         MessageUtils.safeSendMessage(formattedLetter, channel)
         hook.sendMessage("Formatted Letter.").queue()
-        event.channel.asTextChannel().sendMessage("You may start a new letter:").queue()
+        channel.sendMessage("You may start a new letter:").queue()
     }
 }
