@@ -25,7 +25,9 @@ object PatternHandler: ListenerAdapter() {
         val server = DatabaseHandler.getServer(event.guild.id) ?: return@withContext
         if (event.channelType != ChannelType.TEXT) return@withContext
 
-        val channel = event.channel.asTextChannel()
+        val channelType = event.channelType
+        val channel = if (channelType == ChannelType.TEXT) event.channel.asTextChannel() else event.channel.asThreadChannel()
+
         if (channel.id != server.patternChannel && channel.id != server.chainChannel) return@withContext
 
         if (channel.id == server.chainChannel) {
