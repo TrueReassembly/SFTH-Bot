@@ -41,7 +41,7 @@ object PatternHandler: ListenerAdapter() {
         }
 
         logger.info("Started Checking")
-        val words = MessageUtils.getLatestMessages(channel, 400, true).map { it.lowercase() }
+        val words = MessageUtils.getLatestMessages(channel, 4000, true).map { it.lowercase() }
 
         if (words.contains(event.message.contentDisplay.lowercase())) {
             logger.info("Found Repeated Message")
