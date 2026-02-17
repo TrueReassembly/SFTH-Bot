@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.channel.Channel
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel
 import net.dv8tion.jda.api.entities.channel.concrete.ThreadChannel
+import net.dv8tion.jda.api.entities.channel.middleman.GuildMessageChannel
 
 object MessageUtils {
 
@@ -46,7 +47,7 @@ object MessageUtils {
         return cutOffMessages
     }
 
-    suspend fun safeSendMessage(message: String, channel: TextChannel, useCodeBlocks: Boolean = true) {
+    suspend fun safeSendMessage(message: String, channel: GuildMessageChannel, useCodeBlocks: Boolean = true) {
         var messageSegment = if (useCodeBlocks) "```" else ""
         var extraNeededChars = if (useCodeBlocks) 3 else 0
 

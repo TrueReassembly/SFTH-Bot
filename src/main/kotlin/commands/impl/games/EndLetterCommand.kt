@@ -19,7 +19,7 @@ object EndLetterCommand: BaseCommand("endletter") {
             hook.sendMessage("Letters is not set up for this server").setEphemeral(true).queue()
             return
         }
-        val channel = SFTHBot.getInstance().getTextChannelById(channelId) ?: run {
+        val channel = SFTHBot.getInstance().getTextChannelById(channelId) ?: SFTHBot.getInstance().getThreadChannelById(channelId) ?: run {
             hook.sendMessage("There was a problem with finding the channel, try setting the letters channel in the /config command again").setEphemeral(true).queue()
             return
         }
