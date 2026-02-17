@@ -23,7 +23,6 @@ object PatternHandler: ListenerAdapter() {
         if (!event.isFromGuild) return@withContext
         if (event.author.isBot || event.author.isSystem) return@withContext
         val server = DatabaseHandler.getServer(event.guild.id) ?: return@withContext
-        if (event.channelType != ChannelType.TEXT) return@withContext
 
         val channelType = event.channelType
         val channel = if (channelType == ChannelType.TEXT) event.channel.asTextChannel() else event.channel.asThreadChannel()
