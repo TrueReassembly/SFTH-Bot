@@ -28,9 +28,9 @@ object MessageUtils {
         val self = SFTHBot.getInstance().selfUser.id
 
         val rawList = mutableListOf<Message>();
+        val channelHistory = channel.history;
         while (rawList.size < amount) {
-            val retrievedMessages = channel.history.retrievePast(50).complete()
-
+            val retrievedMessages = channelHistory.retrievePast(50).complete()
             rawList.addAll(retrievedMessages)
             if (retrievedMessages.any { it.author.id == self }) {
                 SFTHBot.logger.info("Found bot message")
