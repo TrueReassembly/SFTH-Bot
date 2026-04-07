@@ -46,6 +46,7 @@ object MessageUtils {
             words.add(msg.contentRaw)
         }
 
+        SFTHBot.logger.info(words.joinToString(", "))
         return words
     }
 
