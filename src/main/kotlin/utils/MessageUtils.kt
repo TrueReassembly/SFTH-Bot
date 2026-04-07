@@ -37,15 +37,12 @@ object MessageUtils {
                 break
             }
         }
-        if (removeMostRecent) rawList.removeFirst()
+        if (removeMostRecent) rawList.removeLast()
 
-        var topMsg = rawList.removeLast();
+        var topMsg = rawList.removeFirst();
         while (topMsg.author.id != self && rawList.isNotEmpty()) {
-            topMsg = rawList.removeLast()
-        }
-
-        for (msg in rawList) {
-            words.add(msg.contentRaw)
+            words.add(topMsg.contentRaw)
+            topMsg = rawList.removeFirst()
         }
 
         SFTHBot.logger.info(words.joinToString(", "))
