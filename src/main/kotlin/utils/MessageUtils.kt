@@ -32,7 +32,10 @@ object MessageUtils {
             val retrievedMessages = channel.history.retrievePast(50).complete()
 
             rawList.addAll(retrievedMessages)
-            if (retrievedMessages.any { it.author.id == self }) break
+            if (retrievedMessages.any { it.author.id == self }) {
+                SFTHBot.logger.info("Found bot message")
+                break
+            }
         }
         if (removeMostRecent) rawList.removeFirst()
 
