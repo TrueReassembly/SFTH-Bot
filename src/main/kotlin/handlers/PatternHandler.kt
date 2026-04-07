@@ -4,6 +4,7 @@ import dev.reassembly.database.DatabaseHandler
 import dev.reassembly.utils.MessageUtils
 import kotlinx.coroutines.*
 import net.dv8tion.jda.api.entities.channel.ChannelType
+import net.dv8tion.jda.api.entities.emoji.Emoji
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import org.slf4j.LoggerFactory
@@ -40,14 +41,17 @@ object PatternHandler: ListenerAdapter() {
         }
 
         logger.info("Started Checking")
-        val words = MessageUtils.getLatestMessages(channel, 400, true).map { it.lowercase() }
+        event.message.addReaction(Emoji.fromUnicode("\uD83E\uDD14")).queue()
+        val words = MessageUtils.getLatestMessages(channel, true).map { it.lowercase() }
 
         if (words.contains(event.message.contentDisplay.lowercase())) {
             logger.info("Found Repeated Message")
+            event.message.addReaction(Emoji.fromUnicode("\uD83D\uDC4E")).queue()
             event.message.reply("Oops! That message has already been sent. You said " + words.count() + " different words. Please restart.").queue()
             return@withContext
         }
 
         logger.info("Couldn't find a repeated message")
+        event.message.addReaction(Emoji.fromUnicode("👍")).queue()
     }
 }
