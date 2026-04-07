@@ -15,6 +15,11 @@ object WriteupCommand: BaseCommand("writeup") {
             return
         }
 
+        val title = TextInput.create("title", "Episode Title", TextInputStyle.SHORT)
+            .setRequired(true)
+            .setPlaceholder("The title of the episode")
+            .build()
+
         val audiencePrompt = TextInput.create("prompt", "Audience Prompt", TextInputStyle.SHORT)
             .setRequired(true)
             .setPlaceholder("The prompt / topic the audience gave")
@@ -26,6 +31,8 @@ object WriteupCommand: BaseCommand("writeup") {
             .build()
 
         val modal = Modal.create("writeupmodal", "Write Up Configuarion")
-            .addComponents()
+            .addActionRow(title, audiencePrompt, synopsis)
+
+        event.replyModal(modal.build())
     }
 }

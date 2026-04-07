@@ -24,7 +24,7 @@ object GPTHandler {
 
     suspend fun formatLetter(original: String): String? {
         try {
-            var newMessage = "```\n"
+            var newMessage = ""
             val sanitizedOriginal = Jsoup.clean(original, Safelist.none())
             val completionRequest = ChatCompletionRequest(
                 model = ModelId("gpt-4o-mini"),
@@ -42,7 +42,6 @@ object GPTHandler {
 
             val completion = gpt.chatCompletion(completionRequest)
             newMessage += completion.choices.first().message.content
-            newMessage += "\n```"
             return newMessage
         } catch (_: Exception) {
             return null
