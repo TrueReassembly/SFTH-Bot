@@ -18,19 +18,18 @@ object MessageUtils {
         return words.joinToString(" ")
     }
 
-    suspend fun getLatestMessages(channel: Channel, amount: Int, removeMostRecent: Boolean): MutableList<String> {
+    suspend fun getLatestMessages(channel: Channel, amount: Int, removeMostRecent: Boolean): MutableList<String> = withContext(
+        Dispatchers.IO) {
         val words = mutableListOf<String>()
 
-        if (channel !is ThreadChannel && channel !is TextChannel) return words
+        if (channel !is ThreadChannel && channel !is TextChannel) return@withContext words
         // val messages = channel.iterableHistory
         // val list = messages.takeAsync(amount).await()
         val self = SFTHBot.getInstance().selfUser.id
 
         val rawList = mutableListOf<Message>();
         while (rawList.size < amount) {
-            val retrievedMessages = withContext(Dispatchers.IO) {
-                channel.history.retrievePast(50).complete()
-            }
+            val retrievedMessages = channel.history.retrievePast(50).complete()
 
             rawList.addAll(retrievedMessages)
             if (retrievedMessages.any { it.author.id == self }) break
@@ -47,7 +46,7 @@ object MessageUtils {
         }
 
         SFTHBot.logger.info(words.joinToString(", "))
-        return words
+        return@withContext words
     }
 
     suspend fun getLatestMessages(channel: Channel, removeMostRecent: Boolean): MutableList<String> {
