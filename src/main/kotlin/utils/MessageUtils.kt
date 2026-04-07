@@ -37,7 +37,7 @@ object MessageUtils {
                 break
             }
         }
-        if (removeMostRecent) rawList.removeLast()
+        if (removeMostRecent) rawList.removeFirst()
 
         var topMsg = rawList.removeFirst();
         while (topMsg.author.id != self && rawList.isNotEmpty()) {
