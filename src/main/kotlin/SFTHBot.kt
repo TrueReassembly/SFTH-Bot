@@ -3,10 +3,10 @@ package dev.reassembly
 import dev.reassembly.commands.CommandHandler
 import dev.reassembly.commands.impl.PingCommand
 import dev.reassembly.commands.impl.config.ConfigCommand
-import dev.reassembly.commands.impl.config.RegisterCommand
 import dev.reassembly.commands.impl.games.PromptCommand
 import dev.reassembly.commands.impl.letters.EndLetterCommand
 import dev.reassembly.database.DatabaseHandler
+import dev.reassembly.handlers.JoinHandler
 import dev.reassembly.handlers.NowPlayingHandler
 import dev.reassembly.handlers.PatternHandler
 import io.github.cdimascio.dotenv.dotenv
@@ -29,12 +29,15 @@ object SFTHBot {
     fun start() = runBlocking {
         val dotenv = dotenv()
 
-        instance = JDABuilder.create(dotenv["TOKEN"], GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES).addEventListeners(CommandHandler, PatternHandler).build()
+        instance = JDABuilder
+            .create(dotenv["TOKEN"],
+                GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES)
+            .addEventListeners(CommandHandler, PatternHandler, JoinHandler)
+            .build()
 
         logger.info("Preparing to register commands")
         instance.updateCommands().addCommands(
             Commands.slash("ping", "Ping!").setGuildOnly(true),
-            Commands.slash("register", "Used to register a server. Can only be used by the bot developer").setGuildOnly(true),
             Commands.slash("config", "Used to configure a server").setGuildOnly(true)
                 .addSubcommands(
                     SubcommandData("channels", "Configuration section for linking games to channels")
@@ -76,7 +79,7 @@ object SFTHBot {
 
         logger.info("Registered Commands")
 
-        CommandHandler.registerCommands(PingCommand, RegisterCommand, ConfigCommand, EndLetterCommand, PromptCommand)
+        CommandHandler.registerCommands(PingCommand, ConfigCommand, EndLetterCommand, PromptCommand)
 
         DatabaseHandler.init()
 

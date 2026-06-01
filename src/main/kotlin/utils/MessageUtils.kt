@@ -23,8 +23,6 @@ object MessageUtils {
         val words = mutableListOf<String>()
 
         if (channel !is ThreadChannel && channel !is TextChannel) return@withContext words
-        // val messages = channel.iterableHistory
-        // val list = messages.takeAsync(amount).await()
         val self = SFTHBot.getInstance().selfUser.id
 
         val rawList = mutableListOf<Message>();
